@@ -31,9 +31,11 @@ app.post('/search/', (req, res) => {
     console.log(req.body);
     let newQuery = new Query(req.body.searches);
 
-    if(newQuery.validateSearchTerms()){
-        //  TODO: method to scrape
-    }else{
+    if (newQuery.validateSearchTerms()) {
+        newQuery.querySearch((data) => {
+            res.send(data);
+        })
+    } else {
         console.log("handleError");
     }
 
