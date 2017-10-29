@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug-15": "node --debug index.js",
     "start-15": "node index.js",
-    "debug": "nodemon index.js --exec babel-node --presets es2015 --debug",
+    "debug": "babel-node --presets es2015 --debug index.js",
     "start": "nodemon index.js --exec babel-node --presets es2015"
   },
   "author": "",
