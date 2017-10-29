@@ -21,6 +21,7 @@
     "cors": "^2.8.1",
     "express": "latest",
     "express-session": "^1.15.0",
+    "google-trends-api": "^4.3.0",
     "mongoose": "^4.8.1",
     "nodemon": "^1.12.1",
     "pug": "^2.0.0-rc.4",

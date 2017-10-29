@@ -5,6 +5,7 @@ import request from 'request';
 import cheerio from 'cheerio';
 import path from 'path';
 import bodyParser from 'body-parser';
+import googleTrends from 'google-trends-api'
 
 //  Models
 import Player from './models/player'
@@ -27,19 +28,30 @@ app.get('/', function (req, res) {
 });
 
 app.post('/search/', (req, res) => {
-    console.log("hitting");
-    console.log(req.body);
-    let newQuery = new Query(req.body.searches);
-
-    if (newQuery.validateSearchTerms()) {
-        newQuery.querySearch((data) => {
-            res.send(data);
+    let searchResult = []
+    googleTrends.interestOverTime({ keyword: 'kyle cincinnati' })
+        .then(function (results) {
+            searchResult.push(results);
         })
-    } else {
-        console.log("handleError");
-    }
 
+    googleTrends.interestOverTime({ keyword: 'boise idaho' })
+        .then(function (results) {
+            searchResult.push(results);
+        })
+
+    googleTrends.interestOverTime({ keyword: 'mountain biking' })
+        .then(function (results) {
+            searchResult.push(results);
+
+            res.send(formatSearchResults(searchResult));
+
+
+        }).catch((err) => { console.error(err) })
 })
+
+const formatSearchResults = (res) => {
+    return res;
+};
 
 
 app.get('/new-players/:count', (req, res) => {

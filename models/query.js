@@ -14,28 +14,32 @@ export default class Query {
             console.log("term ==> ", searches[key]);
             let termArr = searches[key].split(" ");
             console.log(termArr);
-            if (termArr.length > 2) {
+
+            if (termArr.length !== 2) {
                 throw new Error(`You're search term must be 2 words. ${key} did not search for 2 words.`)
+                return false;
             } else {
                 var str = searches[key];
                 var term = encodeURI(str);
-                this.queryString = this.queryString+','+term;
+                this.queryString = this.queryString + ',' + term;
+
             }
         }
+        this.queryString = this.queryString.replace(',', '')
         console.log(this.queryString);
         return true;
     }
 
-    querySearch(cb){
+    querySearch(cb) {
         let url = 'https://trends.google.com/trends/explore?q=';
-        request(url+this.queryString, (err,res, html)=>{
-            if(err){
-                //  TODO: handle error
-            return console.log(err)
+        request(url + this.queryString, (err, res, html) => {
+            console.log(url+this.queryString);
+            if (err) {
+                console.log('there was an error');
+                return err;
             }
-
-                console.log(res);
-                return cb(html);
+            console.log('NO ERROR YAY');
+            return cb(html);
         });
     }
 }
