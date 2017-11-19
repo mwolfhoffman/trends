@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
+import cors from 'cors'
 import googleTrends from 'google-trends-api'
 import Player from './models/player'
 import Query from './models/query'
@@ -11,7 +12,7 @@ export const app = express();
 const port = process.env.PORT || 8081;
 
 //  Middleware
-app.use('*', corsHandler);
+app.use('*', cors(corsHandler));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(router);

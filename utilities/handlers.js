@@ -1,12 +1,15 @@
 import app from '../index'
 
-let corsHandler=(req, res, next)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    return next();
-}
+var whitelist = ['http://localhost:8080', 'http://mwolfhoffman.com','https://failerk.github.io/'];
+export const corsOptions = {
+	origin: function (origin, callback) {
+		var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+		callback(null, originIsWhitelisted);
+	},
+	credentials: true
+};
 
-let defaultErrorHandler = (err, req, res, next) => {
+export const defaultErrorHandler = (err, req, res, next) => {
     let error;
     console.log('Error Caught:')
     console.log(err);
@@ -27,10 +30,4 @@ let defaultErrorHandler = (err, req, res, next) => {
         }
     }
     res.status(400).send(error);
-}
-
-
-export {
-    corsHandler,
-    defaultErrorHandler
 }
