@@ -12,9 +12,9 @@ export const app = express();
 const port = process.env.PORT || 8081;
 
 //  Middleware
-app.use('*', cors(corsHandler));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
+app.use(cors())
 app.use(router);
 
 let totalPlayers = 0;
