@@ -7,7 +7,8 @@ import Query from './models/query'
 import { router } from './routes'
 import { defaultErrorHandler, corsHandler } from './utilities/handlers'
 
-const app = express();
+export const app = express();
+const port = process.env.PORT || 8081;
 
 //  Middleware
 app.use('*', corsHandler);
@@ -19,9 +20,6 @@ let totalPlayers = 0;
 
 app.use(defaultErrorHandler)
 
-app.listen('8081')
-console.log('Listening on 8081');
-
-export {
-    app
-}
+app.listen(port, () => {
+    console.log('Listening on 8081');
+})
